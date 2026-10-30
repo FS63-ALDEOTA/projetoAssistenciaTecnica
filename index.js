@@ -3,6 +3,7 @@
 
 import express from 'express'
 import clientesRoute from './routes/clientesRoute.js'
+import equipamentosRoute from './routes/equipamentosRoute.js'
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.get("/", (req, res)=> {
     res.send("Online")
 })
 app.use("/clientes",  clientesRoute)
+app.use("/equipamentos", equipamentosRoute)
 app.use((req, res)=> {
   res.send("Rota não encontrada")
 })
