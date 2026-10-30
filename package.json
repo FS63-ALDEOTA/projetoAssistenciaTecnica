@@ -1,0 +1,28 @@
+{
+  "name": "projetoassistenciatecnica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FS63-ALDEOTA/projetoAssistenciaTecnica.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/FS63-ALDEOTA/projetoAssistenciaTecnica/issues"
+  },
+  "homepage": "https://github.com/FS63-ALDEOTA/projetoAssistenciaTecnica#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
