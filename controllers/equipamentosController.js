@@ -37,3 +37,11 @@ const deleteEquipamento = (req, res) => {
         res.status(500).send("Erro na requisição.", error.message)
     }
 }
+
+export {
+    getEquipamentosByClient,
+    getEquipamentoById,
+    createEquipamento,
+    updateEquipamento,
+    deleteEquipamento
+}
