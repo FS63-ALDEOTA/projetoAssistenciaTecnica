@@ -4,6 +4,7 @@
 import express from 'express'
 import clientesRoute from './routes/clientesRoute.js'
 
+import funcionariosRoute from './routes/funcionariosRoute.js'
 const app = express()
 
 // função que usa alguma condição
@@ -14,6 +15,8 @@ app.get("/", (req, res)=> {
     res.send("Online")
 })
 app.use("/clientes",  clientesRoute)
+
+app.use("/funcionarios", funcionariosRoute)
 app.use((req, res)=> {
   res.send("Rota não encontrada")
 })
