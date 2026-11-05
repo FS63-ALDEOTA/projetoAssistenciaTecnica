@@ -5,6 +5,8 @@ import express from 'express'
 import clientesRoute from './routes/clientesRoute.js'
 import equipamentosRoute from './routes/equipamentosRoute.js'
 import funcionariosRoute from './routes/funcionariosRoute.js'
+import client from './db.js'
+
 const app = express()
 
 // função que usa alguma condição
