@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import * as funcionarioController from '../controllers/funcionariosController.js'
+import * as funcionariosController from '../controllers/funcionariosController.js'
 
 const router = Router()
 
-router.get("/", funcionarioController.getFuncionarios)
-router.get("/:id", funcionarioController.getFuncionariobyId)
-router.post("/", funcionarioController.createFuncionario)
-router.put("/:id", funcionarioController.updateFuncionario)
+router.get("/", funcionariosController.getFuncionarios)
+router.get("/:id", funcionariosController.getFuncionariobyId)
+router.post("/", funcionariosController.createFuncionario)
+router.put("/:id", funcionariosController.updateFuncionario)
 
 export default router
