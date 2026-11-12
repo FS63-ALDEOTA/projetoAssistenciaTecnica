@@ -6,17 +6,21 @@ const getEquipamentosByClient = (req, res) => {
     }
 }
 
-const getEquipamentoById = (req, res) => {
-    try {
-        res.status(200).send("Busca 1 equipamento pelo Id do cliente.");
-    } catch (error) {
-        res.status(500).send("Erro na requisição.", error)
+const getEquipamentoById = async (req, res) => {
+    try{
+        const {id} = req.params
+        const equipamento = await client.query('SELECT * FROM equipamentos WHERE id = $1', [id])
+        res.status(200).send(equipamento.rows)
+    } catch (error){
+        res.status(500).send("Erro na requisição", error)
     }
 }
 
-const createEquipamento = (req, res) => {
+const createEquipamento = async (req, res) => {
     try {
-        res.status(201).send("Cadastra 1 equipamento.");
+        const {cliente_id, tipo_id, marca_id, cor, tamanho, ano, serie, observacao} = req.body
+        const equipamentos = await client.query('INSERT INTO equipamentos (cliente_id, tipo_id, marca_id, cor, tamanho, ano, serie, observacao) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [cliente_id, tipo_id, marca_id, cor, tamanho, ano, serie, observacao])
+        res.status(201).send(equipamentos.rows);
     } catch (error) {
         res.status(500).send("Erro na requisição.", error)
     }
