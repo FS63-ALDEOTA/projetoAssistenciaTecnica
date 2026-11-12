@@ -6,6 +6,7 @@ import clientesRoute from './routes/clientesRoute.js'
 import equipamentosRoute from './routes/equipamentosRoute.js'
 import funcionariosRoute from './routes/funcionariosRoute.js'
 import ordemServicosRoute from './routes/ordemServicosRoute.js'
+import servicosRoute from './routes/servicosRoute.js'
 import client from './db.js'
 
 const app = express()
@@ -21,6 +22,7 @@ app.use("/clientes",  clientesRoute)
 app.use("/funcionarios", funcionariosRoute)
 app.use("/equipamentos", equipamentosRoute)
 app.use("/ordem-servicos", ordemServicosRoute)
+app.use("/servicos",servicosRoute)
 app.use((req, res)=> {
   res.send("Rota não encontrada")
 })
