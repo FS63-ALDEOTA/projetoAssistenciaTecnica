@@ -10,11 +10,16 @@ const getFuncionarios = (req, res) => {
 
 const getFuncionariobyId = async (req, res) => {
     try{
+        console.log("INICIO REQUISIÇÃO getFuncionariobyId")
         const {id} = req.params
+        if (!isNaN(Number(id))) {
+          return res.status(400).send("Id precisa ser um número")
+        }
+        console.log("PASSOU VERIFICAÇÃO REQUISIÇÃO getFuncionariobyId")
         const funcionario = await client.query('SELECT * FROM funcionarios WHERE id = $1', [id])
-        res.status(200).send(funcionario.rows)
+        return res.status(200).send(funcionario.rows)
     } catch (error){
-        res.status(500).send("Erro na requisição", error)
+       return res.status(500).send({mensagem:"Erro na requisição", error: error.message})
     }
 }
 
