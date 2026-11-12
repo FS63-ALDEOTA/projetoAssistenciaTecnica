@@ -3,7 +3,7 @@ import {
     getServicos,
     getServicosById,
     createServicos,
-    uptadeServicos
+    updateServicos
 } from "../controllers/servicosControllers.js"
 
 const router = Router ();
@@ -11,6 +11,6 @@ const router = Router ();
 router.get ("/",getServicos);
 router.get ("/:id",getServicosById);
 router.post ("/",createServicos);
-router.put ("/",uptadeServicos);
+router.put ("/:id", updateServicos);
 
 export default router;

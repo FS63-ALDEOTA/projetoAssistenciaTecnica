@@ -3,27 +3,27 @@
 const getClientes = (req, res) => {
     try {
         // linha que busca os dados no banco 
-        res.status(200).send("Busca todos os clientes")
+        return res.status(200).send("Busca todos os clientes")
     } catch (error) {
-        res.status(500).send("Erro na requisição", error)
+        return res.status(500).send("Erro na requisição", error)
     }
 }
 
 const getClienteById = (req, res) => {
     try {
         // linha que busca os dados no banco 
-        res.status(200).send("Busca 1 cliente pelo Id")
+        return res.status(200).send("Busca 1 cliente pelo Id")
     } catch (error) {
-        res.status(500).send("Erro na requisição", error)
+        return res.status(500).send("Erro na requisição", error)
     }
 }
 
 const createCliente = (req, res) => {
     try {
         // linha que busca os dados no banco 
-        res.status(201).send("Cadastra 1 cliente")
+        return res.status(201).send("Cadastra 1 cliente")
     } catch (error) {
-        res.status(500).send("Erro na requisição", error)
+        return res.status(500).send("Erro na requisição", error)
     }
 
 }
@@ -31,9 +31,9 @@ const createCliente = (req, res) => {
 const updateCliente = (req, res) => {
     try {
         // linha que busca os dados no banco 
-        res.status(200).send("Altera 1 cliente")
+        return res.status(200).send("Altera 1 cliente")
     } catch (error) {
-        res.status(500).send("Erro na requisição", error)
+        return res.status(500).send("Erro na requisição", error)
     }
 
 }
