@@ -1,8 +1,9 @@
 import client from "../db.js"
 
-const getFuncionarios = (req, res) => {
+const getFuncionarios = async(req, res) => {
     try{
-        res.status(200).send("Busca todos os funcionários")
+        const funcionarios = await client.query('SELECT * FROM funcionarios')
+        res.status(200).send(funcionarios.rows)
     } catch (error){
         res.status(500).send("Erro na requisição", error)
     }
@@ -28,11 +29,14 @@ const createFuncionario = async (req, res) => {
     }
 }
 
-const updateFuncionario = (req, res) => {
+const updateFuncionario = async(req, res) => {
     try{
-        res.status(201).send("Altera 1 Funcionário")
+        const {id} = req.params
+        const {email, cpf, nome, telefone, endereco_id, cargo_id} = req.body
+        const funcionario = await client.query('UPDATE funcionarios SET nome = $1, cpf = $2, email = $3, telefone = $4, endereco_id = $5, cargo_id = $6 WHERE id = $7;', [nome, cpf, email, telefone, endereco_id, cargo_id, id])
+        res.status(201).send(funcionario.rows)
     } catch (error){
-        res.status(500).send("Erro na requisição", erro)
+        res.status(500).send({mensagem:"Erro na requisição", error: error.message})
     }
 }
 
