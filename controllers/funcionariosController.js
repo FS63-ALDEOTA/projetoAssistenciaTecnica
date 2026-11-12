@@ -31,11 +31,12 @@ const createFuncionario = async (req, res) => {
 
 const updateFuncionario = async(req, res) => {
     try{
+        const {id} = req.params
         const {email, cpf, nome, telefone, endereco_id, cargo_id} = req.body
-        const funcionario = await client.query('INSERT INTO funcionarios (nome, cpf, email, telefone, endereco_id, cargo_id) VALUES ($1, $2, $3, $4, $5, $6);', [nome, cpf, email, telefone, endereco_id, cargo_id])
+        const funcionario = await client.query('UPDATE funcionarios SET nome = $1, cpf = $2, email = $3, telefone = $4, endereco_id = $5, cargo_id = $6 WHERE id = $7;', [nome, cpf, email, telefone, endereco_id, cargo_id, id])
         res.status(201).send(funcionario.rows)
     } catch (error){
-        res.status(500).send({mensagem:"Erro na requisição", error})
+        res.status(500).send({mensagem:"Erro na requisição", error: error.message})
     }
 }
 
