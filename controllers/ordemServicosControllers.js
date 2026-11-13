@@ -1,8 +1,10 @@
 import client from "../db.js";
+import { getItensOrdemServicosByOSId } from "./itensOrdemServicosController.js";
 
-const getOrdemServicos = (req, res) => {
+const getOrdemServicos = async(req, res) => {
   try {
-    return res.status(200).send("Busca todas as Ordem de Serviços");
+    const ordemServico = await client.query("SELECT * FROM ordem_servico;");
+    return res.status(200).send(ordemServico.rows);
   } catch {
     return res.status(500).send("erro");
   }
@@ -11,11 +13,19 @@ const getOrdemServicos = (req, res) => {
 
 const getOrdemServicoById = async (req, res) => {
   try {
+    console.log("Iniciou a requisição getOrdemServicoById")
     const { id } = req.params;
     const ordemServico = await client.query("SELECT * FROM ordem_servico WHERE id = $1", [id]);
-    return res.status(200).send(ordemServico.rows);
+    console.log(ordemServico)
+    const itensOrdemServico = await getItensOrdemServicosByOSId(id)
+    console.log(itensOrdemServico)
+    const result = {
+      ordemServico: ordemServico.rows[0],
+      itensOrdemServico: itensOrdemServico.rows
+    }
+    return res.status(200).send(result);
   } catch (error) {
-    return res.status(500).send("Erro na requisição", error);
+    return res.status(500).send({mensagem: "Erro na requisição", error: error.message});
   }
 };
 

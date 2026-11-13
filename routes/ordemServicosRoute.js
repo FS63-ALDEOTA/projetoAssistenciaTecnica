@@ -7,6 +7,6 @@ const router = Router();
 router.get("/", ordemServicosControllers.getOrdemServicos);
 router.get("/:id", ordemServicosControllers.getOrdemServicoById);
 router.post("/", ordemServicosControllers.createOrdemServico);
-router.put("/:id", ordemServicosControllers.updateOrdemServico);
+router.patch("/:id", ordemServicosControllers.updateOrdemServico);
 
 export default router;
