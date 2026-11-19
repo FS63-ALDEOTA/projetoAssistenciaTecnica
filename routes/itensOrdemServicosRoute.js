@@ -4,7 +4,7 @@ import * as itensOrdemServicosControllers from "../controllers/itensOrdemServico
 
 const router = Router();
 
-router.get("/:os_id", itensOrdemServicosControllers.getItensOrdemServicosByOSId);
+router.get("/:os_id", itensOrdemServicosControllers.getItemOrdemServicoByOSId);
 router.get("/:id", itensOrdemServicosControllers.getItemOrdemServicoById);
 router.post("/", itensOrdemServicosControllers.createItemOrdemServico);
 router.patch("/:id", itensOrdemServicosControllers.updateItemOrdemServico);

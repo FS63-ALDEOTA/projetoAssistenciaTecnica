@@ -1,12 +1,76 @@
 import client from "../db.js";
 
-const getItensOrdemServicosByOSId = async(os_id) => {
+const getItensOrdemServicosByOSId = async (os_id) => {
   try {
-    
     const itensOrdemServico = await client.query("SELECT * FROM itens_ordem_servico WHERE os_id = $1;", [os_id]);
-    return itensOrdemServico
-  } catch (error){
-    return "Erro ao buscar itens de ordem de serviço"
+    return itensOrdemServico;
+  } catch (error) {
+    return "Erro ao buscar itens de ordem de serviço";
+  }
+};
+
+// const getItemOrdemServicoByOSId = async (os_id) => {
+//   try {
+//     // const { id } = os_id;
+//     const itemOS = await client.query(
+//       `
+//       SELECT ios.os_id,
+//       eq.descricao AS descricao,
+//       st.descricao AS descicao,
+//       fun.nome AS funcionario,
+//       serv.descricao AS servico
+
+//       FROM itens_ordem_servico ios
+//       LEFT JOIN equipamentos eq ON ios.equipamento_id = eq.id
+//       LEFT JOIN status st on ios.status_id = st.id
+//       LEFT JOIN funcionarios fun on ios.funcionario_id = fun.id
+//       LEFT JOIN servicos serv on ios.servico_id = serv.id
+//       WHERE ios.os_id = $1`,
+//       [os_id],
+//     );
+//   } catch (error) {
+//     return res.status(500).send({ mensagem: "Erro na requisição", error: error.message });
+//   }
+// };
+// =======================================================
+// const getItemOrdemServicoByOSId = async (os_id) => {
+//   const itemOS = await client.query(
+//     `SELECT ios.os_id,
+//       eq.descricao AS equipamento,
+//       st.descricao AS situacao,
+//       fun.nome AS funcionario,
+//       serv.descricao AS servico
+//     FROM itens_ordem_servico ios
+//     LEFT JOIN equipamentos eq ON ios.equipamento_id = eq.id
+//     LEFT JOIN status st ON ios.status_id = st.id
+//     LEFT JOIN funcionarios fun ON ios.funcionario_id = fun.id
+//     LEFT JOIN servicos serv ON ios.servico_id = serv.id
+//     WHERE ios.os_id = $1`,
+//     [os_id],
+//   );
+//   return itemOS;
+// };
+
+const getItemOrdemServicoByOSId = async (os_id) => {
+  try {
+    const itemOS = await client.query(
+      `SELECT ios.os_id,
+        eq.descricao AS equipamento,
+        st.descricao AS situacao,
+        fun.nome AS funcionario,
+        serv.descricao AS servico
+      FROM itens_ordem_servico ios
+      LEFT JOIN equipamentos eq ON ios.equipamento_id = eq.id
+      LEFT JOIN status st ON ios.status_id = st.id
+      LEFT JOIN funcionarios fun ON ios.funcionario_id = fun.id
+      LEFT JOIN servicos serv ON ios.servico_id = serv.id
+      WHERE ios.os_id = $1`,
+      [os_id],
+    );
+    return itemOS;
+  } catch (error) {
+    console.error("Erro ao buscar itens da OS:", error.message);
+    throw error; // Repassa o erro para o try/catch da rota que chamou essa função
   }
 };
 
@@ -53,4 +117,4 @@ const updateItemOrdemServico = async (req, res) => {
   // res.status(201).send ("cadastra OrdemServico")
 };
 
-export { getItensOrdemServicosByOSId, getItemOrdemServicoById, createItemOrdemServico, updateItemOrdemServico };
+export { getItemOrdemServicoById, getItemOrdemServicoByOSId, createItemOrdemServico, updateItemOrdemServico };
