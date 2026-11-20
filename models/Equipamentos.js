@@ -1,7 +1,7 @@
-import { Sequelize, DataTypes } from 'sequelize'
+import { sequelize } from '../db.js';
 import { DataTypes } from 'sequelize';
 
-const equipamentos = Sequelize.define(
+const equipamentos = sequelize.define(
   {
     id: {
       type: DataTypes.SERIAL,
@@ -48,13 +48,13 @@ const equipamentos = Sequelize.define(
 );
 
 equipamentos.hasOne(clientes, {
-    foreign_key: 'cliente_id'
+    foreignKey: 'cliente_id'
 })  
 
 equipamentos.hasOne(tipos, {
-    foreign_key: 'tipo_id'
+    foreignKey: 'tipo_id'
 })  
 
 equipamentos.hasOne(marcas, {
-    foreign_key: 'marca_id'
+    foreignKey: 'marca_id'
 })  
