@@ -1,4 +1,3 @@
-import { Client } from 'pg';
 import { Sequelize, DataTypes }from 'sequelize'
 
 const Clientes = Sequelize.define(
