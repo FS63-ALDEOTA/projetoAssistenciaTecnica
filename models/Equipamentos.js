@@ -47,6 +47,14 @@ const equipamentos = Sequelize.define(
   },
 );
 
-equipamentos.hasOne(Enderecos, {
-    foreign_key: 'enderecos_id'
+equipamentos.hasOne(clientes, {
+    foreign_key: 'cliente_id'
+})  
+
+equipamentos.hasOne(tipos, {
+    foreign_key: 'tipo_id'
+})  
+
+equipamentos.hasOne(marcas, {
+    foreign_key: 'marca_id'
 })  
