@@ -1,4 +1,3 @@
-import { Client } from 'pg';
 import { Sequelize, DataTypes }from 'sequelize'
 
 const Clientes = Sequelize.define(
@@ -41,7 +40,7 @@ const Clientes = Sequelize.define(
     },
   },
   {
-     tableName: 'Clientes'
+     tableName: 'clientes'
   },
 );
 
