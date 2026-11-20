@@ -1,12 +1,14 @@
-import { Sequelize, DataTypes }from 'sequelize'
+import { DataTypes } from 'sequelize'
+import sequelize from '../db.js'
 
-const Clientes = Sequelize.define(
+const Clientes = sequelize.define(
   'Clientes',
   {
     id: {
-      type: DataTypes.SERIAL,
-      auto_increment: true,
-      allowNull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+   
     },
     nome: {
       type: DataTypes.STRING(100),
@@ -36,14 +38,17 @@ const Clientes = Sequelize.define(
     criado_em: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_DATE')
+      defaultValue: DataTypes.NOW
     },
   },
   {
-     tableName: 'clientes'
+     tableName: 'clientes',
+     timestamps: false
   },
 );
 
-Clientes.hasOne(Enderecos, {
-    foreign_key: 'enderecos_id'
-})
+// Clientes.hasOne(Enderecos, {
+//     foreignKey: 'enderecos_id'
+// })
+
+export default Clientes

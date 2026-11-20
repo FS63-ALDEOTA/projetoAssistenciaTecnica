@@ -1,11 +1,12 @@
-import { Sequelize, DataTypes } from "sequelize";
-
-const Funcionarios = Sequelize.define(
+import { DataTypes } from "sequelize";
+import sequelize from '../db.js'
+const Funcionarios = sequelize.define(
     'Funcionarios',
     {
     id: {
-      type: DataTypes.SERIAL,
-      auto_increment: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
     },
     nome: {
@@ -26,20 +27,32 @@ const Funcionarios = Sequelize.define(
     },
     endereco_id: {
       type: DataTypes.INTEGER,
-     
+      allowNull: false,
     },
     ativo: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true
-    
+      defaultValue: true,
+      allowNull: false,
     },
     criado_em: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: Sequelize.literal('CURRENT_DATE')
     },
+    cargo_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
-    tableName: 'Funcionarios'
+    tableName: 'funcionarios',
+    timestamps: false
   }
 )
+
+Funcionarios.hasOne(Enderecos, {
+  foreignKey: 'endereco_id'
+})
+Funcionarios.hasOne(Cargos, {
+  foreignKey: 'cargo_id'
+})

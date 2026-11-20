@@ -1,5 +1,5 @@
 import { DataTypes } from 'sequelize';
-
+import sequelize from '../db.js'
 const OrdemServico = sequelize.define('OrdemServico', {
   id: {
     type: DataTypes.INTEGER,
@@ -39,3 +39,15 @@ const OrdemServico = sequelize.define('OrdemServico', {
 });
 
 module.exports = OrdemServico;
+
+OrdemServico.hasOne(Clientes, {
+    foreignKey: 'cliente_id'
+})
+OrdemServico.hasOne(Status, {
+    foreignKey: 'status_id'
+})
+
+OrdemServico.hasOne(Funcionarios, {
+    foreignKey: 'funcionarios_id'
+})
+
