@@ -20,3 +20,11 @@ const Servicos = sequelize.define(
     timestamps: false
   },
 );
+
+
+export default Servicos
+
+// Um servico pode estar em muitos itens
+Servicos.hasMany(ItensOrdemServico, {
+  foreignKey: "servico_id"
+})

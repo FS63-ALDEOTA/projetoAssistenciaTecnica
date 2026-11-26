@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../db.js'
+import Clientes from './Clientes.js';
+import Funcionarios from './Funcionarios.js';
 const OrdemServico = sequelize.define('OrdemServico', {
   id: {
     type: DataTypes.INTEGER,
@@ -38,16 +40,27 @@ const OrdemServico = sequelize.define('OrdemServico', {
   timestamps: false
 });
 
-module.exports = OrdemServico;
-
-OrdemServico.hasOne(Clientes, {
+// uma OS possui um cliente
+OrdemServico.belongsTo(Clientes, {
     foreignKey: 'cliente_id'
 })
-OrdemServico.hasOne(Status, {
+// uma OS possui um status
+OrdemServico.belongsTo(Status, {
     foreignKey: 'status_id'
 })
 
-OrdemServico.hasOne(Funcionarios, {
+// uma OS possui um funcionário
+OrdemServico.belongsTo(Funcionarios, {
     foreignKey: 'funcionarios_id'
 })
 
+// uma OS pode ter muitos Item e um Item pode estar em várias OS
+OrdemServico.belongsToMany(Equipamentos, 
+  { 
+    through: 'EquipamentosOS',
+    foreignKey: "os_id",
+    otherKey: "equipamento_id" 
+  });
+
+
+export default OrdemServico;

@@ -37,7 +37,7 @@ const Funcionarios = sequelize.define(
     criado_em: {
       type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal('CURRENT_DATE')
+      defaultValue: DataTypes.NOW
     },
     cargo_id: {
       type: DataTypes.INTEGER,
@@ -50,11 +50,13 @@ const Funcionarios = sequelize.define(
   }
 )
 
-Funcionarios.hasOne(Enderecos, {
+Funcionarios.belongsTo(Enderecos, {
   foreignKey: 'endereco_id'
 })
-Funcionarios.hasOne(Cargos, {
+Funcionarios.belongsTo(Cargos, {
   foreignKey: 'cargo_id'
 })
+
+
 
 export default Funcionarios
