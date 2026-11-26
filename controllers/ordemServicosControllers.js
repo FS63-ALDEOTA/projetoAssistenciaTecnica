@@ -1,7 +1,8 @@
 import client from "../db.js";
-import { getItensOrdemServicosByOSId } from "./itensOrdemServicosController.js";
+// import { getItensOrdemServicosByOSId } from "./itensOrdemServicosController.js";
+import { getItemOrdemServicoByOSId } from "./itensOrdemServicosController.js";
 
-const getOrdemServicos = async(req, res) => {
+const getOrdemServicos = async (req, res) => {
   try {
     const ordemServico = await client.query("SELECT * FROM ordem_servico;");
     return res.status(200).send(ordemServico.rows);
@@ -13,19 +14,34 @@ const getOrdemServicos = async(req, res) => {
 
 const getOrdemServicoById = async (req, res) => {
   try {
-    console.log("Iniciou a requisição getOrdemServicoById")
+    console.log("Iniciou a requisição getOrdemServicoById");
     const { id } = req.params;
-    const ordemServico = await client.query("SELECT * FROM ordem_servico WHERE id = $1", [id]);
-    console.log(ordemServico)
-    const itensOrdemServico = await getItensOrdemServicosByOSId(id)
-    console.log(itensOrdemServico)
+    const ordemServico = await client.query(
+      `select os.id,
+      cl.nome AS cliente,
+      st.descricao AS situacao,
+      fun.nome AS funcionario,
+      os.data_entrada,
+      os.data_saida,
+      os.valor_total_os
+      FROM ordem_servico os
+      LEFT JOIN clientes cl ON os.cliente_id = cl.id
+      LEFT JOIN funcionarios fun ON os.funcionario_id = fun.id
+      LEFT JOIN status st ON os.status_id = st.id WHERE os.id=$1`,
+      [id],
+    );
+    console.log(ordemServico);
+    // const itensOrdemServico = await getItensOrdemServicosByOSId(id);
+    const itensOrdemServico = await getItemOrdemServicoByOSId(id);
+
+    console.log(itensOrdemServico);
     const result = {
       ordemServico: ordemServico.rows[0],
-      itensOrdemServico: itensOrdemServico.rows
-    }
+      itensOrdemServico: itensOrdemServico.rows,
+    };
     return res.status(200).send(result);
   } catch (error) {
-    return res.status(500).send({mensagem: "Erro na requisição", error: error.message});
+    return res.status(500).send({ mensagem: "Erro na requisição", error: error.message });
   }
 };
 
@@ -63,3 +79,26 @@ const updateOrdemServico = async (req, res) => {
 };
 
 export { getOrdemServicos, getOrdemServicoById, createOrdemServico, updateOrdemServico };
+
+// const getOrdemServicos = async (req, res) => {
+//   try {
+//     const query = `
+//       SELECT
+//         os.id,
+//         c.nome AS cliente,
+//         s.descricao AS status,
+//         f.nome AS funcionario,
+//         os.data_entrada,
+//         os.data_saida
+//       FROM ordem_servico os
+//       LEFT JOIN clientes c ON os.cliente_id = c.id
+//       LEFT JOIN funcionarios f ON os.funcionario_id = f.id
+//       LEFT JOIN status s ON os.status_id = s.id;
+//     `;
+
+//     const ordemServico = await client.query(query);
+//     return res.status(200).send(ordemServico.rows);
+//   } catch (error) {
+//     return res.status(500).send({ mensagem: "Erro ao buscar ordens de serviço", erro: error.message });
+//   }
+// };
