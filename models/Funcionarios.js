@@ -56,3 +56,5 @@ Funcionarios.hasOne(Enderecos, {
 Funcionarios.hasOne(Cargos, {
   foreignKey: 'cargo_id'
 })
+
+export default Funcionarios

@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../db.js'
+import Enderecos from './Enderecos.js';
 
 const Clientes = sequelize.define(
   'Clientes',
@@ -47,8 +48,6 @@ const Clientes = sequelize.define(
   },
 );
 
-// Clientes.hasOne(Enderecos, {
-//     foreignKey: 'enderecos_id'
-// })
+Clientes.belongsTo(Enderecos)
 
 export default Clientes
