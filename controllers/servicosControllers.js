@@ -1,4 +1,5 @@
 import client from "../db.js"
+import * as ServicosService from '../services/servicosService.js'
 
 const getServicos = async (req, res) => {
     try{
@@ -11,7 +12,12 @@ const getServicos = async (req, res) => {
 
 const getServicosById = async (req, res) => {
     try{
+        console.log("INICIO REQUISIÇÃO getServicosById")
         const {id} = req.params
+        if (!isNaN(Number(id))) {
+            return res.status(400).send("Id precisa ser um número")
+        }
+        console.log("PASSOU VERFICAÇÃO REQUISIÇÃO getServicosById")
         const servicos = await client.query('SELECT * FROM servicos WHERE id = $1', [id])
         return res.status(200).send(servicos.rows)
     } catch (error) {
@@ -20,12 +26,17 @@ const getServicosById = async (req, res) => {
 }
 
 const createServicos = async (req, res) => {
-    try{
+    try {
         const {descricao} = req.body
-        const servicos = await client.query ('INSERT INTO servicos (descricao) VALUES ($1);', [ descricao])
-        return res.status(201).send(servicos.rows)
+
+        if (!descricao) {
+            return res.status(400).send({mensagem: "Verifique os campos obrigatórios"})
+        }
+        await ServicosService.createServicos({descricao})
+        return res.status(201).send({mensagem: "Serviço criado com sucesso"})
     } catch (error) {
-        return res.status(500).send("Erro na requisição", error)
+        const errorTratamento = error.status ? res.status(error.status).send({mensagem: error.message}) : res.status(500).send({mensagem: "Erro na requisição", error})
+        return errorTratamento
     }
 }
 
