@@ -17,7 +17,7 @@ const Status = sequelize.define('Status', {
   timestamps: false
 });
 
-Marcas.hasOne(Equipamentos,{
+Status.hasMany(Equipamentos,{
     foreignKey: 'marca_id',
 })
 
