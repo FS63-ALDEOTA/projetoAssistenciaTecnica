@@ -40,20 +40,20 @@ const EquipamentoOS = sequelize.define('EquipamentoOS', {
 });
 
 
-EquipamentoOS.hasOne(Equipamentos, {
+EquipamentoOS.belongsTo(Equipamentos, {
     foreignKey: 'equipamento_id',
 });
 
 
-EquipamentoOS.hasOne(Status, {
+EquipamentoOS.belongsTo(Status, {
     foreignKey: 'status_id',
 });
 
-EquipamentoOS.hasOne(Funcionarios, {
+EquipamentoOS.belongsTo(Funcionarios, {
     foreignKey: 'funcionario_id',
 });
 
-EquipamentoOS.hasOne(Servicos, {
+EquipamentoOS.belongsTo(Servicos, {
     foreignKey: 'servico_id',
 });
 
