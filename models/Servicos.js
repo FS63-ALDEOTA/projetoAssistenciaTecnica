@@ -11,8 +11,7 @@ const Servicos = sequelize.define(
     },
     descricao: {
       type: DataTypes.STRING(100),
-      auto_increment: true,
-        allowNull: false,
+      allowNull: false,
     }
   },
   {
