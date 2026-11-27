@@ -5,8 +5,8 @@ import Roles from './Roles.js'
 const Usuarios = sequelize.define('Usuarios', {
   id: {
     type: DataTypes.INTEGER,
-    AllowNull: false,
-    AutoIncrement: true,
+    allowNull: false,
+    autoIncrement: true,
     primaryKey: true
   },
   usuario: {

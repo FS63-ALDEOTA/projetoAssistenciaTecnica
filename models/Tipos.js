@@ -1,11 +1,12 @@
 import {DataTypes} from 'sequelize';
 import sequelize from '../db.js'
+import Equipamentos from './Equipamentos.js'
 
 const Tipos = sequelize.define('Tipos', {
   id: {
     type: DataTypes.INTEGER,
-    AllowNull: false,
-    AutoIncrement: true,
+    allowNull: false,
+    autoIncrement: true,
     primaryKey: true
   },
   descricao: {

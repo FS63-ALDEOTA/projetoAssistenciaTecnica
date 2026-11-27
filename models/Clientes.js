@@ -41,11 +41,6 @@ const Clientes = sequelize.define(
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
-        atualizado_em: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    }
   },
   {
      tableName: 'clientes',
