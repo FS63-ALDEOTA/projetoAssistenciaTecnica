@@ -1,7 +1,7 @@
 import Clientes from "../models/Clientes.js"
 
 const getClientByEmail = async (email) => {
-    return await Clientes.findAll({
+    return await Clientes.findOne({
         where:{ email: email}
     })
 }

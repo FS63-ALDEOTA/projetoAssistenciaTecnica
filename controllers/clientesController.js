@@ -18,7 +18,7 @@ const getClienteById = async (req, res) => {
             return res.status(400).send("Id precisa ser um número")
         }
         console.log("PASSOU VERIFICAÇÃO REQUISIÇÃO getClienteById")
-        const cliente = await client.query('SELECT * FROM cliente WHERE id = $1', [id])
+        const cliente = await client.query('SELECT * FROM clientes WHERE id = $1', [id])
         return res.status(200).send(cliente.rows)
     } catch (error) {
         return res.status(500).send({ mensagem: "Erro na requisição", error: error.message })
@@ -48,7 +48,7 @@ const updateCliente = async (req, res) => {
     try {
         const { id } = req.params
         const { email, cpf, nome, telefone, endereco_id } = req.body
-        const cliente = await client.query('UPDATE clientes SET nome = $1, cpf = $2, email = $3, telefone = $4, endereco_id = $5 WHERE id = $7;', [nome, cpf, email, telefone, endereco_id, id])
+        const cliente = await client.query('UPDATE clientes SET nome = $1, cpf = $2, email = $3, telefone = $4, endereco_id = $5 WHERE id = $6;', [nome, cpf, email, telefone, endereco_id, id])
         return res.status(200).send(cliente.rows)
     } catch (error) {
         return res.status(500).send({ mensagem: "Erro na requisição", error: error.message })
