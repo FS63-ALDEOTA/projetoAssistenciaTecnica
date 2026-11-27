@@ -19,7 +19,7 @@ const Usuarios = sequelize.define('Usuarios', {
   },
   role_id: {
     type: DataTypes.INTEGER,
-    AllowNull: false
+    allowNull: false
   },
   criado_em: {
     type: DataTypes.DATE,
@@ -33,12 +33,14 @@ const Usuarios = sequelize.define('Usuarios', {
   }
 },
 {
-    TableName: 'usuarios',
+    tableName: 'usuarios',
     timestamps: false
 }
 
 );
 
-Usuarios.belongsTo(Roles)
+Usuarios.belongsTo(Roles, {
+  foreignKey: "role_id"
+})
 
 export default Usuarios
