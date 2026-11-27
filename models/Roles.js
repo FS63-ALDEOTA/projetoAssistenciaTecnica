@@ -17,6 +17,6 @@ const Roles = sequelize.define(
     timestamps: false
 });
 
-Roles.hasOne(Usuario, {
+Roles.hasMany(Usuario, {
     foreignKey: 'usuario_id'
 })
