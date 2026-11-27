@@ -18,7 +18,7 @@ const Cargos = sequelize.define('Cargos', {
 });
 
 
-Cargos.belongsTo(Funcionarios, {
+Cargos.hasOne(Funcionarios, {
     foreignKey: 'cargo_id',
 });
 
